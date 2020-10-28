@@ -56,7 +56,7 @@ module Lines
         url: url_for(@article),
         site_name: SITE_TITLE,
       }
-      meta_tags[:image] = CONFIG[:host] + @article.image_url if @article.image_url.present?
+      meta_tags[:image] = @article.image_url if @article.image_url.present?
       set_meta_tags title: @article.title,
                     keywords: KEYWORDS + @article.tag_list.to_s,
                     open_graph: meta_tags
