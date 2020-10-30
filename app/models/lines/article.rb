@@ -13,8 +13,8 @@ require 'friendly_id'
 
 module Lines
   class Article < Lines::ApplicationRecord
-    include HeroImageUploader[:hero_image]
-    include DocumentUploader[:document]
+    include HeroImageUploader::Attachment(:hero_image)
+    include DocumentUploader::Attachment(:document)
     
     extend FriendlyId
     friendly_id :title, use: [:slugged, :history, :finders]
