@@ -1,6 +1,6 @@
 module Lines  
   class Picture < Lines::ApplicationRecord
-    include PictureUploader[:picture]
+    include PictureUploader::Attachment(:picture)
     
     # Associations    
     belongs_to :article, touch: true, optional: true
