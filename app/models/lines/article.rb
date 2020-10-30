@@ -9,12 +9,13 @@
 
 require 'kaminari'
 require 'acts-as-taggable-on'
-require 'carrierwave'
-require 'carrierwave/orm/activerecord'
 require 'friendly_id'
 
 module Lines
   class Article < Lines::ApplicationRecord
+    include HeroImageUploader[:hero_image]
+    include DocumentUploader[:document]
+    
     extend FriendlyId
     friendly_id :title, use: [:slugged, :history, :finders]
 
@@ -23,14 +24,8 @@ module Lines
     has_many :authorables
     has_many :authors, through: :authorables
 
-    attr_accessor :hero_image_file
     accepts_nested_attributes_for :pictures, :authors
-
-
-    # Mount Carrierwave uploaders
-    mount_uploader :hero_image, HeroImageUploader
-    mount_uploader :document, DocumentUploader
-
+    
     # Pagination and tagging
     paginates_per CONFIG[:articles_per_page]
     acts_as_taggable
